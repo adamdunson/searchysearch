@@ -22,16 +22,11 @@
 set_time_limit(0);
 
 /* MySQL Connection Information */
-// Add clients here if you need them as an option
-$db_client = array(
-	"Example Database" => array(
-			"db_server" => "localhost",
-			"db_username" => "root",
-			"db_password" => "password",
-			"db_db" => "example_db"
-		)
-);
-
+$db_client = array();
+$yaml = yaml_parse_file(getcwd()."/database.yml");
+foreach($yaml as $key=>$value) {
+	$db_client[$key] = $value;
+}
 /* MySQL Connection Information */
 
 if(!empty($_GET['client']))
@@ -41,13 +36,13 @@ else if(is_array($db_client)) {
 	$client = $client[0];
 }
 
-$db_server = $db_client[$client]['db_server'];
-$db_username = $db_client[$client]['db_username'];
-$db_password = $db_client[$client]['db_password'];
-$db_db = $db_client[$client]['db_db'];
+$host = $db_client[$client]['host'];
+$username = $db_client[$client]['username'];
+$password = $db_client[$client]['password'];
+$database = $db_client[$client]['database'];
 
-$db_link = mysql_connect($db_server, $db_username, $db_password);
-mysql_select_db($db_db, $db_link);
+$db_link = mysql_connect($host, $username, $password);
+mysql_select_db($database, $db_link);
 
 if(!empty($_GET['search_term'])) {
 	$search_term = mysql_real_escape_string(trim($_GET['search_term']));
@@ -57,7 +52,7 @@ if(!empty($_GET['search_term'])) {
 	if(mysql_num_rows($table_result))
 	{
 		while($table_row = mysql_fetch_assoc($table_result))
-			$tables[] = $table_row['Tables_in_'.$db_db];
+			$tables[] = $table_row['Tables_in_'.$database];
 
 		foreach($tables as $table)
 		{
@@ -87,7 +82,7 @@ header("Content-Type: text/html;charset=utf-8");
 	<body>
 		<h1>MySQL Database Search Tool</h1>
 		<h2>
-			<form name="changeClientForm" action="db_search.php" method="get">
+			<form name="changeClientForm" action="mysql_search.php" method="get">
 				<label for="client">Database:</label>
 				<select name="client" onchange="this.form.submit()">
 					<?php foreach($db_client as $client_option=>$client_array): ?>
@@ -101,7 +96,7 @@ header("Content-Type: text/html;charset=utf-8");
 		<?php if(!empty($db_link)): ?><h2>Connected to: <?php echo $client; ?></h2><?php endif; ?>
 
 		<p>This tool will search an entire MySQL database for a string. Be patient.</p>
-		<form name="searchForm" action="db_search.php" method="get">
+		<form name="searchForm" action="mysql_search.php" method="get">
 			<input type="hidden" name="client" value="<?php echo htmlentities($client); ?>" />
 			<label for="search_term">Search Term</label>
 			<?php echo "<input type=\"text\" name=\"search_term\" value=\"$search_term\" />\n"; ?>
