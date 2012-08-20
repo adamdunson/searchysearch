@@ -12,6 +12,10 @@ every column for the search term, e.g.,
 This tool can take a very long time to run. It is literally searching every
 column in every table with a wildcard search term.
 
+Prerequisites
+-------------
+You will need the [php-yaml PECL extension](http://code.google.com/p/php-yaml/wiki/InstallingWithPecl) (for parsing the YAML).
+
 Usage
 -----
 Put this directory somewhere accessible via a web browser.
