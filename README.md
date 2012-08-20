@@ -1,5 +1,5 @@
-Database Search Tool
-====================
+SearchySearch - An Exhaustive Database Search Tool
+==================================================
 In an effort to make searching entire databases for specific strings, numbers,
 and email addresses easier, I have made this script that will pull the list of
 tables and their respective columns from the database and then search each and
@@ -17,9 +17,9 @@ Usage
 Put this directory somewhere accessible via a web browser.
 
 Create a database.yml in the this directory with your desired searchable
-databases. See database.yml.example for an example of what it should look like.
+databases. See database.yml.example for what it should look like.
 
-Navigate to the script, e.g., http://localhost/db_search/mysql_search.php,
+Navigate to the script, e.g., http://localhost/searchysearch/mysql-search.php,
 select your client, enter a search term, and hit Search.
 
 Results will be grouped by table name, and then by column name. Each matching

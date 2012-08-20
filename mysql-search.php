@@ -69,7 +69,7 @@ header("Content-Type: text/html;charset=utf-8");
 	<body>
 		<h1>MySQL Database Search Tool</h1>
 		<h2>
-			<form name="changeClientForm" action="mysql_search.php" method="get">
+			<form name="changeClientForm" action="mysql-search.php" method="get">
 				<label for="client">Database:</label>
 				<select name="client" onchange="this.form.submit()">
 					<?php foreach($db_client as $client_option=>$client_array): ?>
@@ -83,7 +83,7 @@ header("Content-Type: text/html;charset=utf-8");
 		<?php if(!empty($db_link)): ?><h2>Connected to: <?php echo $client; ?></h2><?php endif; ?>
 
 		<p>This tool will search an entire MySQL database for a string. Be patient.</p>
-		<form name="searchForm" action="mysql_search.php" method="get">
+		<form name="searchForm" action="mysql-search.php" method="get">
 			<input type="hidden" name="client" value="<?php echo htmlentities($client); ?>" />
 			<label for="search_term">Search Term</label>
 			<?php echo "<input type=\"text\" name=\"search_term\" value=\"$search_term\" />\n"; ?>
