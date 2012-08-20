@@ -24,21 +24,21 @@ set_time_limit(0);
 /* MySQL Connection Information */
 // Add clients here if you need them as an option
 $db_client = array(
-  "Example Database" => array(
-      "db_server" => "localhost",
-      "db_username" => "root",
-      "db_password" => "password",
-      "db_db" => "example_db"
-    )
+	"Example Database" => array(
+			"db_server" => "localhost",
+			"db_username" => "root",
+			"db_password" => "password",
+			"db_db" => "example_db"
+		)
 );
 
 /* MySQL Connection Information */
 
 if(!empty($_GET['client']))
-  $client = $_GET['client'];
+	$client = $_GET['client'];
 else if(is_array($db_client)) {
-  $client = array_keys($db_client);
-  $client = $client[0];
+	$client = array_keys($db_client);
+	$client = $client[0];
 }
 
 $db_server = $db_client[$client]['db_server'];
@@ -86,19 +86,19 @@ header("Content-Type: text/html;charset=utf-8");
 
 	<body>
 		<h1>MySQL Database Search Tool</h1>
-    <h2>
-      <form name="changeClientForm" action="db_search.php" method="get">
-        <label for="client">Database:</label>
-        <select name="client" onchange="this.form.submit()">
-          <?php foreach($db_client as $client_option=>$client_array): ?>
-          <option value="<?php echo $client_option; ?>"<?php if(strcmp($client_option, $client)==0) echo " selected=\"selected\""; ?>>
-            <?php echo $client_option; ?>
-          </option>
-          <?php endforeach; ?>
-        </select>
-      </form>
-    </h2>
-    <?php if(!empty($db_link)): ?><h2>Connected to: <?php echo $client; ?></h2><?php endif; ?>
+		<h2>
+			<form name="changeClientForm" action="db_search.php" method="get">
+				<label for="client">Database:</label>
+				<select name="client" onchange="this.form.submit()">
+					<?php foreach($db_client as $client_option=>$client_array): ?>
+					<option value="<?php echo $client_option; ?>"<?php if(strcmp($client_option, $client)==0) echo " selected=\"selected\""; ?>>
+						<?php echo $client_option; ?>
+					</option>
+					<?php endforeach; ?>
+				</select>
+			</form>
+		</h2>
+		<?php if(!empty($db_link)): ?><h2>Connected to: <?php echo $client; ?></h2><?php endif; ?>
 
 		<p>This tool will search an entire MySQL database for a string. Be patient.</p>
 		<form name="searchForm" action="db_search.php" method="get">
